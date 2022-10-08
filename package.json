@@ -1,0 +1,31 @@
+{
+  "name": "auto-read-sw",
+  "version": "0.78.343",
+  "description": "Auto read sw adalah Read sw otomatis yang dibuat dengan baileys dan nodejs, simple dan dapat bekerja otomatis read SW setiap ada SW baru",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bolaxd/bot-read-sw.git"
+  },
+  "keywords": [
+    "bot",
+    "read-sw",
+    "whatsapp-bot",
+    "bot-nodejs",
+    "nodejs"
+  ],
+  "author": "bolaxd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bolaxd/bot-read-sw/issues"
+  },
+  "homepage": "https://github.com/bolaxd/bot-read-sw#readme",
+  "dependencies": {
+    "@adiwajshing/baileys": "^4.4.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
