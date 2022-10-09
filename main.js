@@ -1,24 +1,21 @@
-const { default: KUNTUL, useMultiFileAuthState, DisconnectReason } = (await import('@adiwajshing/baileys')).default;
+const { default: KUNTUL, useMultiFileAuthState, DisconnectReason, makeInMemoryStore } = (await import('@adiwajshing/baileys')).default;
 import { Boom } from '@hapi/boom';
 import p from 'pino';
 import cuy from './config.js';
+const logger = p({ level: 'silent' })
+const store = makeInMemoryStore({ logger })
 
 const j = async (u, c, q) => {
-	const { lastDisconnect, connection, qr, isNewLogin, receivedPendingNotifications } = u
-	if(connection === "open") {
-		console.clear()
-		console.log('AUTO READ TELAH AKTIF!!!');
-	} else if (connection === 'close'){
-		let reason = new Boom(lastDisconnect?.error)?.output.statusCode; 
-		if (reason === DisconnectReason.badSession) q(); 
-		else if (reason === DisconnectReason.connectionClosed) q(); 
-		else if (reason === DisconnectReason.connectionLost) q();
-		else if (reason === DisconnectReason.connectionReplaced) q(); 
-		else if (reason === DisconnectReason.loggedOut) c.loggout(); 
-		else if (reason === DisconnectReason.restartRequired) q();
-		else if (reason === DisconnectReason.timedOut) q();
-		else c.end("Silahkan start ulang!!!");
-	}
+	const { lastDisconnect, connection } = p 
+   try {
+      connection == 'close' ? 
+      (new Boom(lastDisconnect.error ).output?.statusCode === DisconnectReason.loggedOut ? start() : start()):
+      connection == 'open' ? 
+      console.log('KONEKSI TELAH TERSAMBUNG KE WHATSAPP WEB')
+      :console.log(p);
+   } catch (e) {
+   	console.log(e)
+   }
 };
 const k = async (u, c) => {
 	let m = u.messages[0]
@@ -33,7 +30,6 @@ const k = async (u, c) => {
 };
 const start = async () => {
 	try {
-		const logger = p({ level: 'silent' })
 		const { state, saveCreds } = await useMultiFileAuthState('DB');
 		const client = KUNTUL({
 			browser: [cuy.name, 'safari', '1.0.0'],
@@ -41,8 +37,10 @@ const start = async () => {
 			logger,
 			auth: state
 		});
+		store.bind(client.ev)
 		client.ev.on('messages-upsert', async (up) => k(up, client));
 		client.ev.on('connection', async (up) => j(up, client, start));
+		client.ev.on('creds.update', saveCreds);
 	} catch (e) {
 		console.log(e);
 	}
