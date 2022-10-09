@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://avatars0.githubusercontent.com/u/4674786?s=400&u=2f77d382a4428c141558772a2b7ad3a36bebf5bc&v=4" width="128" height="128"/>
+<img src="https://telegra.ph/file/999af4810b047124e5e1a.jpg" width="328" height="328"/>
 </p>
 <p align="center">
 <a href="#"><img title="Auto-Read-SW" src="https://img.shields.io/badge/bot%20read%20sw-green?colorA=%23ff0000&colorB=C13584&style=for-the-badge"></a>
