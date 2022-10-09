@@ -1,17 +1,32 @@
-const { default: KUNTUL, useMultiFileAuthState, DisconnectReason, makeInMemoryStore } = (await import('@adiwajshing/baileys')).default;
+const { default: KUNTUL, useMultiFileAuthState, DisconnectReason, makeInMemoryStore, getContentType } = (await import('@adiwajshing/baileys')).default;
 import { Boom } from '@hapi/boom';
 import p from 'pino';
+import cfonts from 'cfonts';
 import cuy from './config.js';
 const log = p({ level: 'silent' })
 
+cfonts.say('auto-read-sw', {// Ubah saja cuii ;v
+				font: 'tiny',       
+				align: 'center',
+				colors: ['system'],
+				background: 'transparent', 
+				letterSpacing: 1,
+				lineHeight: 1,
+				space: true,
+				maxLength: '0',
+				gradient: false,
+				independentGradient: false,
+				transitionGradient: false,
+				env: 'node'
+			});
 const j = async (u, c, q) => {
 	const { lastDisconnect, connection } = u
    try {
-      connection == 'close' ? 
-      (new Boom(lastDisconnect.error ).output?.statusCode === DisconnectReason.loggedOut ? q() : q()):
-      connection == 'open' ? 
-      console.log('KONEKSI TELAH TERSAMBUNG KE WHATSAPP WEB')
-      :console.log(u);
+      if (connection == 'close') {
+      	(new Boom(lastDisconnect.error ).output?.statusCode === DisconnectReason.loggedOut ? q() : q())
+      } else if (connection == 'open') {
+			console.log("Tersambung ke Koneksi whatsapp...");
+      }
    } catch (e) {
    	console.log(e)
    }
@@ -19,13 +34,19 @@ const j = async (u, c, q) => {
 const h = async (u, c) => {
 	try {
 		let m = u.messages[0]
-		//console.log(up);
+		const ftrol = { key : { remoteJid: 'status@broadcast', participant : '0@s.whatsapp.net' }, message: { orderMessage: { itemCount : 2022, status: 1, surface : 1, message: cuy.name,  orderTitle: `Helo bng`, thumbnail: '', sellerJid: '0@s.whatsapp.net' } } }
 		if (!m) return
 		if (m.key.remoteJid === 'status@broadcast') {
 			if (!cuy.autoread) return
 			setTimeout(() => {
 				c.readMessages([m.key])
-				console.log('Telah melihat status pada user : '+m.key.participant.split('@')[0]);
+				let mt = getContentType(m.message)
+				console.log((/protocolMessage/i.test(mt)) ? `${m.key.participant.split('@')[0]} Telah menghapus Story nya` : 'Melihat story user : '+m.key.participant.split('@')[0]);
+				if (/protocolMessage/i.test(mt)) c.sendMessage(cuy.owner+'@s.whatsapp.net', {text:'Status dari @'+m.key.participant.split('@')[0]+' Telah dihapus', mentions: [m.key.participant]}, {quoted: ftrol})
+				if (/(imageMessage|videoMessage|extendedTextMessage)/i.test(mt)) {
+					let keke = (mt == 'extendedTextMessage') ? `\nStory Teks Berisi : ${m.message.extendedTextMessage.text}` : (mt == 'imageMessage') ? `\nStory Gambar dengan Caption : ${m.message.imageMessage.caption}` : (mt == 'videoMessage') ? `\nStory Video dengan Caption : ${m.message.videoMessage.caption}` : '\nTidak diketahui cek saja langsung!!!'
+					c.sendMessage(cuy.owner+'@s.whatsapp.net', {text: 'Melihat story dari @'+m.key.participant.split('@')[0] + keke, mentions: [m.key.participant]}, {quoted: ftrol});
+				}
 			}, cuy.faston);
 		}
 	} catch (e) {
