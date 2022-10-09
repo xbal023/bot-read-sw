@@ -15,8 +15,10 @@
 <a href="https://github.com/bolaxd/bot-read-sw/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/bolaxd/bot-read-sw?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="https://github.com/bolaxd/bot-read-sw/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/bolaxd/bot-read-sw?color=%23833AB4&logo=github&style=flat-square"></a>
 </p>
+## Deploy To heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/bolaxd/bot-read-sw)
 
-## How to pakai?
+## Run On Termux
 ```bash
 > git clone https://github.com/bolaxd/bot-read-sw
 > cd bot-read-sw-main
