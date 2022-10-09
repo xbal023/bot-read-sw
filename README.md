@@ -38,12 +38,14 @@ Jika Error saat npm install maka bisa lakukan cara dibawah ini
 ```js
 const config = {
 	name: 'Bolaxd', // Ubah Nama kamu [ ini nama yg dimunculin saat terkoneksi ke WA web ]
+	owner: '6287839067186', // Ubah Nomor ke Nomor owner
 	autoread: true, // Ubah Ini untuk read sw == true, untuk tidak maka == false
-	faston: 10000 // Semakin dikit nilai nya, maka semakin cepat read SW
+	faston: 1000 // Semakin dikit nilai nya, maka semakin cepat read SW
 }
 export default config;
 ```
 scan QR nya untuk terhubung ke whatsapp
+<br>
 <img src="https://telegra.ph/file/9b92ead72b872582220da.jpg" width="250">
 <br>
 <img src="https://telegra.ph/file/ef8d78d976b50d8f9dac4.jpg" width="100">
