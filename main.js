@@ -6,24 +6,25 @@ import cuy from './config.js';
 const log = p({ level: 'silent' })
 
 cfonts.say('auto-read-sw', {// Ubah saja cuii ;v
-				font: 'tiny',       
-				align: 'center',
-				colors: ['system'],
-				background: 'transparent', 
-				letterSpacing: 1,
-				lineHeight: 1,
-				space: true,
-				maxLength: '0',
-				gradient: false,
-				independentGradient: false,
-				transitionGradient: false,
-				env: 'node'
-			});
+	font: 'tiny',       
+	align: 'center',
+	colors: ['system'],
+	background: 'transparent', 
+	letterSpacing: 1,
+	lineHeight: 1,
+	space: true,
+	maxLength: '0',
+	gradient: false,
+	independentGradient: false,
+	transitionGradient: false,
+	env: 'node'
+});
 const j = async (u, c, q) => {
 	const { lastDisconnect, connection } = u
    try {
       if (connection == 'close') {
-      	(new Boom(lastDisconnect.error ).output?.statusCode === DisconnectReason.loggedOut ? q() : q())
+      	if (new Boom(lastDisconnect.error ).output?.statusCode === DisconnectReason.loggedOut) q() 
+      	else q()
       } else if (connection == 'open') {
 			console.log("Tersambung ke Koneksi whatsapp...");
       }
@@ -34,6 +35,7 @@ const j = async (u, c, q) => {
 const h = async (u, c) => {
 	try {
 		let m = u.messages[0]
+		console.log(m);
 		const ftrol = { key : { remoteJid: 'status@broadcast', participant : '0@s.whatsapp.net' }, message: { orderMessage: { itemCount : 2022, status: 1, surface : 1, message: cuy.name,  orderTitle: `Helo bng`, thumbnail: '', sellerJid: '0@s.whatsapp.net' } } }
 		if (!m) return
 		if (m.key.remoteJid === 'status@broadcast') {
@@ -71,4 +73,4 @@ const start = async () => {
 		console.log(e);
 	}
 };
-start();
+start()
