@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/bolaxd/bot-read-sw#readme",
   "dependencies": {
-    "@adiwajshing/baileys": "^4.4.0",
+    "baileys": "^5.0.8",
     "@adiwajshing/keyed-db": "^0.2.4",
     "cfonts": "^3.1.1",
     "qrcode-terminal": "^0.12.0"
