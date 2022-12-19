@@ -53,4 +53,4 @@ scan QR nya untuk terhubung ke whatsapp
 ## Penulis
 [![bolaxd](https://github.com/bolaxd.png?size=100)](https://github.com/bolaxd)
 ## Big Thanks To
-[![Adiwajshing](https://github.com/adiwajshing.png?size=280)](https://github.com/adiwajsing)
+[![Amiruldev20](https://github.com/Amiruldev20.png?size=280)](https://github.com/Amiruldev20)
