@@ -36,7 +36,6 @@ const j = async (u, c, q) => {
 const h = async (u, c) => {
 	try {
 		let m = u.messages[0]
-		console.log(m);
 		const ftrol = { key : { remoteJid: 'status@broadcast', participant : '0@s.whatsapp.net' }, message: { orderMessage: { itemCount : 2022, status: 1, surface : 1, message: cuy.name,  orderTitle: `Helo bng`, thumbnail: '', sellerJid: '0@s.whatsapp.net' } } }
 		if (!m) return
 		if (m.key.remoteJid === 'status@broadcast') {
@@ -53,7 +52,7 @@ const h = async (u, c) => {
 			}, cuy.faston);
 		}
 	} catch (e) {
-		console.log(e);
+		console.log('');
 	}
 }
 const start = async () => {
