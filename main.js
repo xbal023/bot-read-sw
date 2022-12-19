@@ -30,7 +30,7 @@ const j = async (u, c, q) => {
 			console.log("Tersambung ke Koneksi whatsapp...");
       }
    } catch (e) {
-   	console.log(e)
+   	console.log('')
    }
 };
 const h = async (u, c) => {
@@ -44,11 +44,6 @@ const h = async (u, c) => {
 				c.readMessages([m.key])
 				let mt = getContentType(m.message)
 				console.log((/protocolMessage/i.test(mt)) ? `${m.key.participant.split('@')[0]} Telah menghapus Story nya` : 'Melihat story user : '+m.key.participant.split('@')[0]);
-				if (/protocolMessage/i.test(mt)) c.sendMessage(cuy.owner+'@s.whatsapp.net', {text:'Status dari @'+m.key.participant.split('@')[0]+' Telah dihapus', mentions: [m.key.participant]}, {quoted: ftrol})
-				if (/(imageMessage|videoMessage|extendedTextMessage)/i.test(mt)) {
-					let keke = (mt == 'extendedTextMessage') ? `\nStory Teks Berisi : ${m.message.extendedTextMessage.text}` : (mt == 'imageMessage') ? `\nStory Gambar dengan Caption : ${m.message.imageMessage.caption}` : (mt == 'videoMessage') ? `\nStory Video dengan Caption : ${m.message.videoMessage.caption}` : '\nTidak diketahui cek saja langsung!!!'
-					c.sendMessage(cuy.owner+'@s.whatsapp.net', {text: 'Melihat story dari @'+m.key.participant.split('@')[0] + keke, mentions: [m.key.participant]}, {quoted: ftrol});
-				}
 			}, cuy.faston);
 		}
 	} catch (e) {
@@ -70,7 +65,7 @@ const start = async () => {
 		client.ev.on('messages.upsert', async (up) => h(up, client));
 		client.ev.on('creds.update', saveCreds);
 	} catch (e) {
-		console.log(e);
+		console.log('');
 	}
 };
 start()
