@@ -4,7 +4,9 @@ import { Boom } from '@hapi/boom';
 import p from 'pino';
 import cfonts from 'cfonts';
 import cuy from './config.js';
-const log = p({ level: 'silent' })
+import { connect } from './server.js';
+const log = p({ level: 'silent' });
+const PORT = process.env.PORT || 3000  
 
 cfonts.say('auto-read-sw', {// Ubah saja cuii ;v
 	font: 'tiny',       
@@ -57,6 +59,7 @@ const start = async () => {
 		const client = KUNTUL({
 			browser: [cuy.name, 'safari', '1.0.0'],
 			printQRInTerminal: true,
+      markOnlineOnConnect: false,
 			logger: log,
 			auth: state
 		});
@@ -64,6 +67,7 @@ const start = async () => {
 		client.ev.on('connection.update', async (up) => j(up, client, start));
 		client.ev.on('messages.upsert', async (up) => h(up, client));
 		client.ev.on('creds.update', saveCreds);
+    connect(client, PORT)
 	} catch (e) {
 		console.log('');
 	}
